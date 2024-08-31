@@ -1,14 +1,14 @@
-interface Reactions {
+interface IReactions {
 	likes: number;
 	dislikes: number;
 }
 
-export interface Post {
+export interface IPost {
 	id: number;
 	title: string;
 	body: string;
-	tags: Array<string>;
-	reactions: Reactions;
+	tags: string[];
+	reactions: IReactions;
 	views: number;
 	userId: number;
 }

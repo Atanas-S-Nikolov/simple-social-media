@@ -1,6 +1,5 @@
 import { useGetPosts } from "../../queries/posts/useGetPosts";
 import PostItem from "./PostItem";
-import { Post } from "../../appTypes/Post";
 import { StyledPostContainer } from "./PostContainer.styled";
 
 export default function PostsContainer() {
@@ -13,7 +12,7 @@ export default function PostsContainer() {
 	return (
 		<StyledPostContainer>
 			{postsQuery.isFetched
-				? postsQuery.data.posts.map((post: Post) => (
+				? postsQuery.data.posts.map((post) => (
 						<PostItem key={post.id} post={post} />
 					))
 				: null}

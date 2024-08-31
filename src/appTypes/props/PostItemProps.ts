@@ -1,5 +1,5 @@
-import { Post } from "../Post";
+import { IPost } from "../Post";
 
-export interface PostItemProps {
-	post: Post;
+export interface IPostItemProps {
+	post: IPost;
 }
