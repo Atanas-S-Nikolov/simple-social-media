@@ -1,4 +1,4 @@
-import { FaExternalLinkAlt, FaRegComment } from "react-icons/fa";
+import { FaRegComment } from "react-icons/fa";
 import { IPostItemProps } from "../../appTypes/props/PostItemProps";
 import { IUser } from "../../appTypes/User";
 import { useGetUser } from "../../queries/users/useGetUser";
@@ -14,7 +14,7 @@ import {
 	StyledPostDivider,
 	StyledRatingsSection,
 } from "./PostItem.styled";
-import { BLUE, RED, TEXT_DARK_GRAY } from "../../styles/variables";
+import { BLUE, RED } from "../../styles/variables";
 import { useState } from "react";
 import {
 	AiFillDislike,
@@ -24,9 +24,14 @@ import {
 } from "react-icons/ai";
 import { useGetPostComments } from "../../queries/posts/useGetPostComments";
 import { ICommentPagination } from "../../appTypes/Pagination";
+import IconButton from "../utils/IconButton";
+import { MdMoreVert } from "react-icons/md";
+import { useUpdatePost } from "../../queries/posts/useUpdatePost";
 
 export default function PostItem({ post }: IPostItemProps) {
-	const { id, title, body, reactions, views, userId } = post;
+	const [currentPost, setCurrentPost] = useState(post);
+	const { id, title, body, reactions, views, userId } = currentPost;
+	const updatePostMutation = useUpdatePost();
 	const userQuery = useGetUser(userId);
 	const commentsQuery = useGetPostComments(id);
 	const isLoading = userQuery.isLoading && commentsQuery.isLoading;
@@ -46,11 +51,29 @@ export default function PostItem({ post }: IPostItemProps) {
 	);
 
 	function toggleLike() {
-		setLiked((prevState) => !prevState);
+		const postLikes = post.reactions.likes;
+		const newLikes = liked ? postLikes : postLikes + 1;
+		const newReactions = { ...reactions, likes: newLikes };
+		const updatedPost = { ...currentPost, reactions: newReactions };
+		updatePostMutation.mutate(updatedPost, {
+			onSuccess: () => {
+				setCurrentPost(updatedPost);
+				setLiked((prevState) => !prevState);
+			},
+		});
 	}
 
 	function toggleDislike() {
-		setDisliked((prevState) => !prevState);
+		const postDislikes = post.reactions.dislikes;
+		const newDislikes = disliked ? postDislikes : postDislikes + 1;
+		const newReactions = { ...reactions, dislikes: newDislikes };
+		const updatedPost = { ...currentPost, reactions: newReactions };
+		updatePostMutation.mutate(updatedPost, {
+			onSuccess: () => {
+				setCurrentPost(updatedPost);
+				setDisliked((prevState) => !prevState);
+			},
+		});
 	}
 
 	function renderPost() {
@@ -65,7 +88,9 @@ export default function PostItem({ post }: IPostItemProps) {
 						<StyledUserImage src={image} alt={fullName} />
 						<h1>{fullName}</h1>
 					</StyledUserInfo>
-					<FaExternalLinkAlt color={TEXT_DARK_GRAY} />
+					<IconButton>
+						<MdMoreVert />
+					</IconButton>
 				</StyledPostItemHeader>
 				<h1>{title}</h1>
 				<StyledTextSecondary>{body}</StyledTextSecondary>

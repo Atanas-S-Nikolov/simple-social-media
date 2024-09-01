@@ -57,6 +57,7 @@ export const StyledPostActions = styled.section`
 
 export const StyledPostButton = styled.button`
 	background-color: transparent;
+	color: var(--text-dark-gray);
 	border: none;
 	padding: 0.5em;
 	font-size: 1rem;
