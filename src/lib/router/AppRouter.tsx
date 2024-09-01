@@ -1,14 +1,14 @@
 import {
-  createBrowserRouter,
-  createRoutesFromElements,
-  Route,
+	createBrowserRouter,
+	createRoutesFromElements,
+	Route,
 } from "react-router-dom";
-import App from "@/components/App";
+import HomePage from "@/pages/HomePage";
 
 export const appRouter = createBrowserRouter(
-  createRoutesFromElements(
-    <>
-      <Route path={"/"} element={<App />} />
-    </>
-  )
+	createRoutesFromElements(
+		<>
+			<Route path={"/"} element={<HomePage />} />
+		</>,
+	),
 );

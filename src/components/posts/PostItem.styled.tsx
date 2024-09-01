@@ -1,0 +1,71 @@
+import styled from "styled-components";
+import Divider from "../utils/Divider";
+
+export const StyledPostItem = styled.section`
+	background-color: white;
+	border-radius: 10px;
+	box-shadow: 0px 0px 2px lightgray;
+	display: inherit;
+	padding: 0.5em 1em;
+	gap: 1em;
+	@media (max-width: 700px) {
+		border-radius: 0px;
+	}
+`;
+
+export const StyledPostItemHeader = styled.section`
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+`;
+
+export const StyledUserImage = styled.img`
+	border-radius: 100px;
+	border: 1px solid lightgray;
+	width: 50px;
+	aspect-ratio: 1 / 1;
+`;
+
+export const StyledUserInfo = styled.div`
+	display: inherit;
+	align-items: inherit;
+	gap: 10px;
+`;
+
+export const StyledTextSecondary = styled.p`
+	color: var(--text-secondary-color);
+`;
+
+export const StyledStatisticsSection = styled.section`
+	display: flex;
+	justify-content: space-between;
+	color: var(--text-dark-gray);
+`;
+
+export const StyledRatingsSection = styled.section`
+	display: flex;
+	gap: 1em;
+`;
+
+export const StyledPostDivider = styled(Divider)`
+	margin: 5px 0px;
+`;
+
+export const StyledPostActions = styled.section`
+	display: flex;
+`;
+
+export const StyledPostButton = styled.button`
+	background-color: transparent;
+	color: var(--text-dark-gray);
+	border: none;
+	padding: 0.5em;
+	font-size: 1rem;
+	flex: 1;
+	display: flex;
+	justify-content: center;
+	gap: 10px;
+	&:hover {
+		background-color: var(--bg-color-gray);
+	}
+`;
