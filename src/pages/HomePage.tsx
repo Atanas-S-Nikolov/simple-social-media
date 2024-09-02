@@ -1,5 +1,5 @@
-import RootLayout from "@/layouts/Layout";
-import PostsContainer from "@/components/posts/PostsContainer";
+import RootLayout from "../layouts/Layout";
+import PostsContainer from "../components/posts/PostsContainer";
 
 export default function HomePage() {
 	return (

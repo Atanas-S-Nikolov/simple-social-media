@@ -1,11 +1,9 @@
 import { StyledIconButton } from "./IconButton.styled";
 
-export default function IconButton(props: React.PropsWithChildren<React.HTMLProps<HTMLButtonElement>>) {
-    const { children, ...iconButtonProps } = props;
+export default function IconButton(
+	props: React.PropsWithChildren<React.ButtonHTMLAttributes<HTMLButtonElement>>,
+) {
+	const { children, ...iconButtonProps } = props;
 
-    return (
-        <StyledIconButton {...iconButtonProps}>
-            {children}
-        </StyledIconButton>
-    )
+	return <StyledIconButton {...iconButtonProps}>{children}</StyledIconButton>;
 }
