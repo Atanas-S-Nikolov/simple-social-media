@@ -51,8 +51,8 @@ export default function PostItem({ post }: IPostItemProps) {
 	);
 
 	function toggleLike() {
-		const postLikes = post.reactions.likes;
-		const newLikes = liked ? postLikes : postLikes + 1;
+		const postLikes = currentPost.reactions.likes;
+		const newLikes = liked ? postLikes - 1 : postLikes + 1;
 		const newReactions = { ...reactions, likes: newLikes };
 		const updatedPost = { ...currentPost, reactions: newReactions };
 		updatePostMutation.mutate(updatedPost, {
@@ -64,8 +64,8 @@ export default function PostItem({ post }: IPostItemProps) {
 	}
 
 	function toggleDislike() {
-		const postDislikes = post.reactions.dislikes;
-		const newDislikes = disliked ? postDislikes : postDislikes + 1;
+		const postDislikes = currentPost.reactions.dislikes;
+		const newDislikes = disliked ? postDislikes - 1 : postDislikes + 1;
 		const newReactions = { ...reactions, dislikes: newDislikes };
 		const updatedPost = { ...currentPost, reactions: newReactions };
 		updatePostMutation.mutate(updatedPost, {
