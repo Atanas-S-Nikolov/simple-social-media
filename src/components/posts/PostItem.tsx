@@ -13,6 +13,7 @@ import {
 	StyledPostButton,
 	StyledPostDivider,
 	StyledRatingsSection,
+	StyledH1,
 } from "./PostItem.styled";
 import { BLUE, RED } from "../../styles/variables";
 import { useState } from "react";
@@ -86,13 +87,13 @@ export default function PostItem({ post }: IPostItemProps) {
 				<StyledPostItemHeader>
 					<StyledUserInfo>
 						<StyledUserImage src={image} alt={fullName} />
-						<h1>{fullName}</h1>
+						<StyledH1>{fullName}</StyledH1>
 					</StyledUserInfo>
 					<IconButton>
 						<MdMoreVert />
 					</IconButton>
 				</StyledPostItemHeader>
-				<h1>{title}</h1>
+				<StyledH1>{title}</StyledH1>
 				<StyledTextSecondary>{body}</StyledTextSecondary>
 				<div>
 					<StyledStatisticsSection>
@@ -125,8 +126,8 @@ export default function PostItem({ post }: IPostItemProps) {
 
 	return (
 		<StyledPostItem>
-			{isLoading ? <h1>Post is loading...</h1> : null}
-			{isError ? <h1>Error</h1> : null}
+			{isLoading ? <StyledH1>Post is loading...</StyledH1> : null}
+			{isError ? <StyledH1>Error</StyledH1> : null}
 			{isFetched ? renderPost() : null}
 		</StyledPostItem>
 	);

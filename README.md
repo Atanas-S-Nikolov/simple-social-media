@@ -1,50 +1,25 @@
-# React + TypeScript + Vite
+# Simple Social Media app
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Social Media app frontend using [DummyJSON](https://dummyjson.com/) as backend.
 
-Currently, two official plugins are available:
+*Disclaimer*: **All mutation endpoints as POST, PUT or PATCH are doing fake mutation because of the implementation of DummyJSON.**
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
 
-## Expanding the ESLint configuration
+### Posts
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+* CRUD - (Create - not started, Read - done, Update - partially done, Delete - not started)
 
-- Configure the top-level `parserOptions` property like this:
+* Infinite scroll - not started
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+### Comments
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+* CRUD - not started
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+### Users and authentication - not started
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+### Quotes - not started
+
+### Theming - done
+
+### Internationalization - not started
