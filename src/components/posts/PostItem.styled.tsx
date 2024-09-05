@@ -73,3 +73,10 @@ export const StyledPostButton = styled.button`
 		background-color: ${props => props.theme.background};
 	}
 `;
+
+export const StyledTextAction = styled.h5`
+	&:hover {
+		text-decoration: underline;
+		cursor: pointer;
+	}
+`;

@@ -1,5 +1,5 @@
 import { FaRegComment } from "react-icons/fa";
-import { IPostItemProps } from "../../appTypes/props/PostItemProps";
+import { IPostItemProps } from "../../appTypes/props/Post";
 import { IUser } from "../../appTypes/User";
 import { useGetUser } from "../../queries/users/useGetUser";
 import {
@@ -14,6 +14,7 @@ import {
 	StyledPostDivider,
 	StyledRatingsSection,
 	StyledH1,
+	StyledTextAction,
 } from "./PostItem.styled";
 import { BLUE, RED } from "../../styles/variables";
 import { useState } from "react";
@@ -28,6 +29,7 @@ import { ICommentPagination } from "../../appTypes/Pagination";
 import IconButton from "../utils/IconButton";
 import { MdMoreVert } from "react-icons/md";
 import { useUpdatePost } from "../../queries/posts/useUpdatePost";
+import CommmentsContainer from "./comments/CommentsContainer";
 
 export default function PostItem({ post }: IPostItemProps) {
 	const [currentPost, setCurrentPost] = useState(post);
@@ -40,6 +42,7 @@ export default function PostItem({ post }: IPostItemProps) {
 	const isFetched = userQuery.isFetched && commentsQuery.isFetched;
 	const [liked, setLiked] = useState(false);
 	const [disliked, setDisliked] = useState(false);
+	const [commentsVisible, setCommentsVisible] = useState(false);
 	const likeIcon = liked ? (
 		<AiFillLike fontSize={20} color={BLUE} />
 	) : (
@@ -77,10 +80,14 @@ export default function PostItem({ post }: IPostItemProps) {
 		});
 	}
 
+	function toggleComments() {
+		setCommentsVisible((prevState) => !prevState);
+	}
+
 	function renderPost() {
 		const { image, firstName, lastName } = userQuery.data as IUser;
 		const fullName = firstName + " " + lastName;
-		const { total } = commentsQuery.data as ICommentPagination;
+		const { total, comments } = commentsQuery.data as ICommentPagination;
 
 		return (
 			<>
@@ -102,7 +109,9 @@ export default function PostItem({ post }: IPostItemProps) {
 							<h5>{reactions.dislikes} Dislikes</h5>
 							<h5>{views} Views</h5>
 						</StyledRatingsSection>
-						<h5>{total} Comments</h5>
+						<StyledTextAction onClick={toggleComments}>
+							{total} Comments
+						</StyledTextAction>
 					</StyledStatisticsSection>
 					<StyledPostDivider />
 					<StyledPostActions>
@@ -114,12 +123,13 @@ export default function PostItem({ post }: IPostItemProps) {
 							{dislikeIcon}
 							Dislike
 						</StyledPostButton>
-						<StyledPostButton>
+						<StyledPostButton onClick={toggleComments}>
 							<FaRegComment fontSize={20} />
 							Comment
 						</StyledPostButton>
 					</StyledPostActions>
 				</div>
+				{commentsVisible ? <CommmentsContainer comments={comments} /> : null}
 			</>
 		);
 	}
