@@ -1,5 +1,5 @@
 import { FaRegComment } from "react-icons/fa";
-import { IPostItemProps } from "../../appTypes/props/PostItemProps";
+import { IPostItemProps } from "../../appTypes/props/Post";
 import { IUser } from "../../appTypes/User";
 import { useGetUser } from "../../queries/users/useGetUser";
 import {
@@ -8,14 +8,13 @@ import {
 	StyledUserImage,
 	StyledPostItemHeader,
 	StyledUserInfo,
-	StyledTextSecondary,
 	StyledPostActions,
 	StyledPostButton,
 	StyledPostDivider,
 	StyledRatingsSection,
-	StyledH1,
+	StyledTextAction,
 } from "./PostItem.styled";
-import { BLUE, RED } from "../../styles/variables";
+import { BLUE, RED, TABLET } from "../../styles/variables";
 import { useState } from "react";
 import {
 	AiFillDislike,
@@ -25,9 +24,14 @@ import {
 } from "react-icons/ai";
 import { useGetPostComments } from "../../queries/posts/useGetPostComments";
 import { ICommentPagination } from "../../appTypes/Pagination";
-import IconButton from "../utils/IconButton";
+import IconButton from "../common/IconButton";
 import { MdMoreVert } from "react-icons/md";
 import { useUpdatePost } from "../../queries/posts/useUpdatePost";
+import CommmentsContainer from "./comments/CommentsContainer";
+import Loader from "../utils/Loader";
+import Error from "../utils/Error";
+import Typography from "../common/Typography";
+import { useMediaQuery } from "../../hooks/useMediaQuery";
 
 export default function PostItem({ post }: IPostItemProps) {
 	const [currentPost, setCurrentPost] = useState(post);
@@ -40,6 +44,8 @@ export default function PostItem({ post }: IPostItemProps) {
 	const isFetched = userQuery.isFetched && commentsQuery.isFetched;
 	const [liked, setLiked] = useState(false);
 	const [disliked, setDisliked] = useState(false);
+	const [commentsVisible, setCommentsVisible] = useState(false);
+	const tablet = useMediaQuery(`(max-width: ${TABLET})`);
 	const likeIcon = liked ? (
 		<AiFillLike fontSize={20} color={BLUE} />
 	) : (
@@ -52,7 +58,7 @@ export default function PostItem({ post }: IPostItemProps) {
 	);
 
 	function toggleLike() {
-		const postLikes = currentPost.reactions.likes;
+		const postLikes = reactions.likes;
 		const newLikes = liked ? postLikes - 1 : postLikes + 1;
 		const newReactions = { ...reactions, likes: newLikes };
 		const updatedPost = { ...currentPost, reactions: newReactions };
@@ -65,7 +71,7 @@ export default function PostItem({ post }: IPostItemProps) {
 	}
 
 	function toggleDislike() {
-		const postDislikes = currentPost.reactions.dislikes;
+		const postDislikes = reactions.dislikes;
 		const newDislikes = disliked ? postDislikes - 1 : postDislikes + 1;
 		const newReactions = { ...reactions, dislikes: newDislikes };
 		const updatedPost = { ...currentPost, reactions: newReactions };
@@ -77,57 +83,75 @@ export default function PostItem({ post }: IPostItemProps) {
 		});
 	}
 
+	function toggleComments() {
+		setCommentsVisible((prevState) => !prevState);
+	}
+
 	function renderPost() {
 		const { image, firstName, lastName } = userQuery.data as IUser;
 		const fullName = firstName + " " + lastName;
-		const { total } = commentsQuery.data as ICommentPagination;
+		const { total, comments } = commentsQuery.data as ICommentPagination;
 
 		return (
 			<>
 				<StyledPostItemHeader>
 					<StyledUserInfo>
 						<StyledUserImage src={image} alt={fullName} />
-						<StyledH1>{fullName}</StyledH1>
+						<Typography variant="h1">{fullName}</Typography>
 					</StyledUserInfo>
 					<IconButton>
 						<MdMoreVert />
 					</IconButton>
 				</StyledPostItemHeader>
-				<StyledH1>{title}</StyledH1>
-				<StyledTextSecondary>{body}</StyledTextSecondary>
+				<Typography variant="h1">{title}</Typography>
+				<Typography variant="p" $color="secondary">
+					{body}
+				</Typography>
 				<div>
 					<StyledStatisticsSection>
 						<StyledRatingsSection>
-							<h5>{reactions.likes} Likes</h5>
-							<h5>{reactions.dislikes} Dislikes</h5>
-							<h5>{views} Views</h5>
+							{!tablet ? (
+								<>
+									<Typography variant="h5">{reactions.likes} Likes</Typography>
+									<Typography variant="h5">
+										{reactions.dislikes} Dislikes
+									</Typography>
+								</>
+							) : null}
+							<Typography variant="h5">{views} Views</Typography>
 						</StyledRatingsSection>
-						<h5>{total} Comments</h5>
+						{!tablet ? (
+							<StyledTextAction onClick={toggleComments}>
+								{total} Comments
+							</StyledTextAction>
+						) : null}
 					</StyledStatisticsSection>
 					<StyledPostDivider />
 					<StyledPostActions>
 						<StyledPostButton onClick={toggleLike}>
 							{likeIcon}
-							Like
+							{tablet ? reactions.likes : <>Like</>}
 						</StyledPostButton>
 						<StyledPostButton onClick={toggleDislike}>
 							{dislikeIcon}
-							Dislike
+							{tablet ? reactions.dislikes : <>Dislike</>}
 						</StyledPostButton>
-						<StyledPostButton>
+						<StyledPostButton onClick={toggleComments}>
 							<FaRegComment fontSize={20} />
-							Comment
+							{tablet ? total : <>Comment</>}
 						</StyledPostButton>
 					</StyledPostActions>
+					{commentsVisible ? <StyledPostDivider /> : null}
 				</div>
+				{commentsVisible ? <CommmentsContainer comments={comments} /> : null}
 			</>
 		);
 	}
 
 	return (
 		<StyledPostItem>
-			{isLoading ? <StyledH1>Post is loading...</StyledH1> : null}
-			{isError ? <StyledH1>Error</StyledH1> : null}
+			<Loader isVisible={isLoading} />
+			<Error isVisible={isError} />
 			{isFetched ? renderPost() : null}
 		</StyledPostItem>
 	);

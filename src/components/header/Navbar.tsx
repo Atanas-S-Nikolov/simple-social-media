@@ -1,6 +1,6 @@
 import { IoShareSocialOutline } from "react-icons/io5";
 import { StyledHeader, StyledThemeIconButton } from "./Navbar.styled";
-import { NavbarProps } from "../../appTypes/props/NavbarProps";
+import { NavbarProps } from "../../appTypes/props/Navbar";
 import { MdDarkMode, MdLightMode } from "react-icons/md";
 
 export default function Navbar({ toggleTheme, isDarkTheme }: NavbarProps) {
@@ -9,7 +9,9 @@ export default function Navbar({ toggleTheme, isDarkTheme }: NavbarProps) {
 	return (
 		<StyledHeader>
 			<IoShareSocialOutline fontSize={32} />
-			<StyledThemeIconButton onClick={toggleTheme}>{themeButtonIcon}</StyledThemeIconButton>
+			<StyledThemeIconButton onClick={toggleTheme}>
+				{themeButtonIcon}
+			</StyledThemeIconButton>
 		</StyledHeader>
 	);
 }

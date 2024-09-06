@@ -14,7 +14,8 @@ export async function getPostComments(
 	return response.data;
 }
 
-export async function updatePost(post: IPost): Promise<IPost> {
-	const response = await backendRequest.put(`/posts/${post.id}`, post);
+export async function updatePost(data: IPost): Promise<IPost> {
+	const { id, ...post } = data;
+	const response = await backendRequest.put(`/posts/${id}`, post);
 	return response.data;
 }
