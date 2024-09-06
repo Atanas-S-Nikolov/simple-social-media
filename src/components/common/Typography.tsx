@@ -1,14 +1,10 @@
 import { StyledTypography } from "./Typography.styled";
 import { ITypographyProps } from "../../appTypes/props/Typography";
 
-export default function Typography({
-	className,
-	children,
-	variant,
-	$color,
-}: ITypographyProps) {
+export default function Typography(props: ITypographyProps) {
+	const { children, ...typographyProps } = props;
 	return (
-		<StyledTypography className={className} variant={variant} $color={$color}>
+		<StyledTypography {...typographyProps}>
 			{children}
 		</StyledTypography>
 	);

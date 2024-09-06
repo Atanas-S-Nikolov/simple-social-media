@@ -14,7 +14,7 @@ import {
 	StyledRatingsSection,
 	StyledTextAction,
 } from "./PostItem.styled";
-import { BLUE, RED } from "../../styles/variables";
+import { BLUE, RED, TABLET } from "../../styles/variables";
 import { useState } from "react";
 import {
 	AiFillDislike,
@@ -31,6 +31,7 @@ import CommmentsContainer from "./comments/CommentsContainer";
 import Loader from "../utils/Loader";
 import Error from "../utils/Error";
 import Typography from "../common/Typography";
+import { useMediaQuery } from "../../hooks/useMediaQuery";
 
 export default function PostItem({ post }: IPostItemProps) {
 	const [currentPost, setCurrentPost] = useState(post);
@@ -44,6 +45,7 @@ export default function PostItem({ post }: IPostItemProps) {
 	const [liked, setLiked] = useState(false);
 	const [disliked, setDisliked] = useState(false);
 	const [commentsVisible, setCommentsVisible] = useState(false);
+	const tablet = useMediaQuery(`(max-width: ${TABLET})`);
 	const likeIcon = liked ? (
 		<AiFillLike fontSize={20} color={BLUE} />
 	) : (
@@ -56,7 +58,7 @@ export default function PostItem({ post }: IPostItemProps) {
 	);
 
 	function toggleLike() {
-		const postLikes = currentPost.reactions.likes;
+		const postLikes = reactions.likes;
 		const newLikes = liked ? postLikes - 1 : postLikes + 1;
 		const newReactions = { ...reactions, likes: newLikes };
 		const updatedPost = { ...currentPost, reactions: newReactions };
@@ -69,7 +71,7 @@ export default function PostItem({ post }: IPostItemProps) {
 	}
 
 	function toggleDislike() {
-		const postDislikes = currentPost.reactions.dislikes;
+		const postDislikes = reactions.dislikes;
 		const newDislikes = disliked ? postDislikes - 1 : postDislikes + 1;
 		const newReactions = { ...reactions, dislikes: newDislikes };
 		const updatedPost = { ...currentPost, reactions: newReactions };
@@ -108,29 +110,35 @@ export default function PostItem({ post }: IPostItemProps) {
 				<div>
 					<StyledStatisticsSection>
 						<StyledRatingsSection>
-							<Typography variant="h5">{reactions.likes} Likes</Typography>
-							<Typography variant="h5">
-								{reactions.dislikes} Dislikes
-							</Typography>
+							{!tablet ? (
+								<>
+									<Typography variant="h5">{reactions.likes} Likes</Typography>
+									<Typography variant="h5">
+										{reactions.dislikes} Dislikes
+									</Typography>
+								</>
+							) : null}
 							<Typography variant="h5">{views} Views</Typography>
 						</StyledRatingsSection>
-						<StyledTextAction onClick={toggleComments}>
-							{total} Comments
-						</StyledTextAction>
+						{!tablet ? (
+							<StyledTextAction onClick={toggleComments}>
+								{total} Comments
+							</StyledTextAction>
+						) : null}
 					</StyledStatisticsSection>
 					<StyledPostDivider />
 					<StyledPostActions>
 						<StyledPostButton onClick={toggleLike}>
 							{likeIcon}
-							Like
+							{tablet ? reactions.likes : <>Like</>}
 						</StyledPostButton>
 						<StyledPostButton onClick={toggleDislike}>
 							{dislikeIcon}
-							Dislike
+							{tablet ? reactions.dislikes : <>Dislike</>}
 						</StyledPostButton>
 						<StyledPostButton onClick={toggleComments}>
 							<FaRegComment fontSize={20} />
-							Comment
+							{tablet ? total : <>Comment</>}
 						</StyledPostButton>
 					</StyledPostActions>
 					{commentsVisible ? <StyledPostDivider /> : null}

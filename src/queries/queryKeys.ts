@@ -11,3 +11,7 @@ export const usersKeys = {
 	one: (id: number | string) => ["user", id],
 	oneWithPosts: (id: number | string) => ["user-posts", id],
 };
+
+export const commentsKeys = {
+	update: () => ["update-comment"],
+};

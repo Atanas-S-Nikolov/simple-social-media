@@ -1,3 +1,8 @@
+export const TABLET = "768px";
+export const MOBILE_L = "425px";
+export const MOBILE = "375px";
+export const MOBILE_S = "320px";
+
 export const BG_COLOR_LIGHT = "rgb(245, 245, 245)";
 export const BORDER_COLOR_LIGHT = "lightgray";
 export const PRIMARY_COLOR_LIGHT = "#fff";
