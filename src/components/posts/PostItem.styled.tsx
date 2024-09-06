@@ -1,11 +1,12 @@
 import styled from "styled-components";
-import Divider from "../utils/Divider";
+import Divider from "../common/Divider";
 
 export const StyledPostItem = styled.section`
-	background-color: ${props => props.theme.primary};
+	background-color: ${(props) => props.theme.primary};
 	border-radius: 10px;
-	box-shadow: 0px 0px 2px ${props => props.theme.border};
+	box-shadow: 0px 0px 2px ${(props) => props.theme.border};
 	display: inherit;
+	align-items: stretch;
 	padding: 0.5em 1em;
 	gap: 1em;
 	@media (max-width: 700px) {
@@ -21,7 +22,7 @@ export const StyledPostItemHeader = styled.section`
 
 export const StyledUserImage = styled.img`
 	border-radius: 100px;
-	border: 1px solid ${props => props.theme.border};
+	border: 1px solid ${(props) => props.theme.border};
 	width: 50px;
 	aspect-ratio: 1 / 1;
 `;
@@ -32,18 +33,10 @@ export const StyledUserInfo = styled.div`
 	gap: 10px;
 `;
 
-export const StyledH1 = styled.h1`
-	color: ${props => props.theme.text.primary};
-`;
-
-export const StyledTextSecondary = styled.p`
-	color: ${props => props.theme.text.secondary};
-`;
-
 export const StyledStatisticsSection = styled.section`
 	display: flex;
 	justify-content: space-between;
-	color: ${props => props.theme.text.accent};
+	color: ${(props) => props.theme.text.accent};
 `;
 
 export const StyledRatingsSection = styled.section`
@@ -61,7 +54,7 @@ export const StyledPostActions = styled.section`
 
 export const StyledPostButton = styled.button`
 	background-color: transparent;
-	color: ${props => props.theme.text.accent};
+	color: ${(props) => props.theme.text.accent};
 	border: none;
 	padding: 0.5em;
 	font-size: 1rem;
@@ -70,7 +63,7 @@ export const StyledPostButton = styled.button`
 	justify-content: center;
 	gap: 10px;
 	&:hover {
-		background-color: ${props => props.theme.background};
+		background-color: ${(props) => props.theme.background};
 	}
 `;
 

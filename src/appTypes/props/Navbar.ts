@@ -1,4 +1,4 @@
 export interface NavbarProps {
-    toggleTheme: () => void;
-    isDarkTheme: boolean;
+	toggleTheme: () => void;
+	isDarkTheme: boolean;
 }

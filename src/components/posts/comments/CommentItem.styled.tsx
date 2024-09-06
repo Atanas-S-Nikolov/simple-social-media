@@ -14,7 +14,7 @@ export const StyledCommentImage = styled.img`
 `;
 
 export const StyledCommentInformation = styled.section`
-	background-color: ${(props) => props.theme.background};
+	background-color: ${(props) => props.theme.secondary};
 	border-radius: 20px;
 	padding: 10px;
 `;

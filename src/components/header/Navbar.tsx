@@ -9,7 +9,9 @@ export default function Navbar({ toggleTheme, isDarkTheme }: NavbarProps) {
 	return (
 		<StyledHeader>
 			<IoShareSocialOutline fontSize={32} />
-			<StyledThemeIconButton onClick={toggleTheme}>{themeButtonIcon}</StyledThemeIconButton>
+			<StyledThemeIconButton onClick={toggleTheme}>
+				{themeButtonIcon}
+			</StyledThemeIconButton>
 		</StyledHeader>
 	);
 }

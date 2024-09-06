@@ -8,12 +8,10 @@ import {
 	StyledUserImage,
 	StyledPostItemHeader,
 	StyledUserInfo,
-	StyledTextSecondary,
 	StyledPostActions,
 	StyledPostButton,
 	StyledPostDivider,
 	StyledRatingsSection,
-	StyledH1,
 	StyledTextAction,
 } from "./PostItem.styled";
 import { BLUE, RED } from "../../styles/variables";
@@ -26,10 +24,13 @@ import {
 } from "react-icons/ai";
 import { useGetPostComments } from "../../queries/posts/useGetPostComments";
 import { ICommentPagination } from "../../appTypes/Pagination";
-import IconButton from "../utils/IconButton";
+import IconButton from "../common/IconButton";
 import { MdMoreVert } from "react-icons/md";
 import { useUpdatePost } from "../../queries/posts/useUpdatePost";
 import CommmentsContainer from "./comments/CommentsContainer";
+import Loader from "../utils/Loader";
+import Error from "../utils/Error";
+import Typography from "../common/Typography";
 
 export default function PostItem({ post }: IPostItemProps) {
 	const [currentPost, setCurrentPost] = useState(post);
@@ -94,20 +95,24 @@ export default function PostItem({ post }: IPostItemProps) {
 				<StyledPostItemHeader>
 					<StyledUserInfo>
 						<StyledUserImage src={image} alt={fullName} />
-						<StyledH1>{fullName}</StyledH1>
+						<Typography variant="h1">{fullName}</Typography>
 					</StyledUserInfo>
 					<IconButton>
 						<MdMoreVert />
 					</IconButton>
 				</StyledPostItemHeader>
-				<StyledH1>{title}</StyledH1>
-				<StyledTextSecondary>{body}</StyledTextSecondary>
+				<Typography variant="h1">{title}</Typography>
+				<Typography variant="p" $color="secondary">
+					{body}
+				</Typography>
 				<div>
 					<StyledStatisticsSection>
 						<StyledRatingsSection>
-							<h5>{reactions.likes} Likes</h5>
-							<h5>{reactions.dislikes} Dislikes</h5>
-							<h5>{views} Views</h5>
+							<Typography variant="h5">{reactions.likes} Likes</Typography>
+							<Typography variant="h5">
+								{reactions.dislikes} Dislikes
+							</Typography>
+							<Typography variant="h5">{views} Views</Typography>
 						</StyledRatingsSection>
 						<StyledTextAction onClick={toggleComments}>
 							{total} Comments
@@ -128,6 +133,7 @@ export default function PostItem({ post }: IPostItemProps) {
 							Comment
 						</StyledPostButton>
 					</StyledPostActions>
+					{commentsVisible ? <StyledPostDivider /> : null}
 				</div>
 				{commentsVisible ? <CommmentsContainer comments={comments} /> : null}
 			</>
@@ -136,8 +142,8 @@ export default function PostItem({ post }: IPostItemProps) {
 
 	return (
 		<StyledPostItem>
-			{isLoading ? <StyledH1>Post is loading...</StyledH1> : null}
-			{isError ? <StyledH1>Error</StyledH1> : null}
+			<Loader isVisible={isLoading} />
+			<Error isVisible={isError} />
 			{isFetched ? renderPost() : null}
 		</StyledPostItem>
 	);

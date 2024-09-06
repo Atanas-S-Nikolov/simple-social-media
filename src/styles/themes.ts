@@ -5,6 +5,8 @@ import {
 	BORDER_COLOR_LIGHT,
 	PRIMARY_COLOR_DARK,
 	PRIMARY_COLOR_LIGHT,
+	SECONDARY_COLOR_DARK,
+	SECONDARY_COLOR_LIGHT,
 	TEXT_ACCENT_DARK,
 	TEXT_ACCENT_LIGHT,
 	TEXT_PRIMARY_COLOR_DARK,
@@ -18,8 +20,9 @@ export const DARK_THEME = "dark";
 
 export const lightTheme = {
 	background: BG_COLOR_LIGHT,
-    border: BORDER_COLOR_LIGHT,
+	border: BORDER_COLOR_LIGHT,
 	primary: PRIMARY_COLOR_LIGHT,
+	secondary: SECONDARY_COLOR_LIGHT,
 	text: {
 		primary: TEXT_PRIMARY_COLOR_LIGHT,
 		secondary: TEXT_SECONDARY_COLOR_LIGHT,
@@ -29,8 +32,9 @@ export const lightTheme = {
 
 export const darkTheme = {
 	background: BG_COLOR_DARK,
-    border: BORDER_COLOR_DARK,
+	border: BORDER_COLOR_DARK,
 	primary: PRIMARY_COLOR_DARK,
+	secondary: SECONDARY_COLOR_DARK,
 	text: {
 		primary: TEXT_PRIMARY_COLOR_DARK,
 		secondary: TEXT_SECONDARY_COLOR_DARK,

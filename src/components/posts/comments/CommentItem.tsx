@@ -1,5 +1,8 @@
 import { ICommentItemProps } from "../../../appTypes/props/Comment";
 import { useGetUser } from "../../../queries/users/useGetUser";
+import Typography from "../../common/Typography";
+import Error from "../../utils/Error";
+import Loader from "../../utils/Loader";
 import {
 	StyledComment,
 	StyledCommentImage,
@@ -12,20 +15,20 @@ export default function CommentItem({ comment }: ICommentItemProps) {
 
 	return (
 		<>
-			{isLoading ? <div>Loading comment...</div> : null}
-			{isError ? <div>Error during loading comment</div> : null}
+			<Loader isVisible={isLoading} />
+			<Error isVisible={isError} />
 			{isFetched ? (
 				<>
 					<StyledComment>
 						<StyledCommentImage src={data?.image} />
 						<div>
 							<StyledCommentInformation>
-								<p>
+								<Typography>
 									<b>{user.fullName}</b>
-								</p>
-								<p>{body}</p>
+								</Typography>
+								<Typography variant="p">{body}</Typography>
 							</StyledCommentInformation>
-							<h5>{likes} likes</h5>
+							<Typography variant="h5">{likes} likes</Typography>
 						</div>
 					</StyledComment>
 				</>
