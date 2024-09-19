@@ -1,4 +1,4 @@
-import { useState } from "react";
+// import { useState } from "react";
 import { quotesKeys } from "../../queries/queryKeys";
 import { useGetRandomQuote } from "../../queries/quotes/useGetRandomQuote";
 import { StyledQuote, StyledQuoteAuthor, StyledQuoteText } from "./Quote.styled";
@@ -7,8 +7,8 @@ import Error from "../utils/Error";
 import { FaQuoteRight } from "react-icons/fa";
 
 export default function Quote() {
-	const [queryKey, setQueryKey] = useState(quotesKeys.oneRandom());
-	const { isFetched, isError, isLoading, data } = useGetRandomQuote(queryKey);
+	// const [queryKey, setQueryKey] = useState(quotesKeys.oneRandom());
+	const { isFetched, isError, isLoading, data } = useGetRandomQuote(quotesKeys.oneRandom());
 
 	return (
 		<StyledQuote>
