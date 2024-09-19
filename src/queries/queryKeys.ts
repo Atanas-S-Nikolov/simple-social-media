@@ -15,3 +15,9 @@ export const usersKeys = {
 export const commentsKeys = {
 	update: () => ["update-comment"],
 };
+
+export const quotesKeys = {
+	oneRandom: () => ["random-quote"],
+	oneRandomPerHour: () => ["random-quote", "hour"],
+	oneRandomPerDay: () => ["random-quote", "day"],
+};
