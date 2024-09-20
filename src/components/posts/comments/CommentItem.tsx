@@ -49,10 +49,7 @@ export default function CommentItem({ comment }: ICommentItemProps) {
 							</StyledCommentInformation>
 							<StyledCommentActions>
 								<Typography variant="h5">{likes} likes</Typography>
-								<StyledLike
-									variant="h5"
-									onClick={toggleLike}
-								>
+								<StyledLike variant="h5" onClick={toggleLike}>
 									{likeText}
 								</StyledLike>
 							</StyledCommentActions>

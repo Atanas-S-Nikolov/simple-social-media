@@ -5,7 +5,8 @@ type Color = "primary" | "secondary" | "accent";
 
 type IBaseTypographyProps<T> = HTMLAttributes<T | "div">;
 
-export interface ITypographyProps extends IBaseTypographyProps<React.PropsWithChildren> {
+export interface ITypographyProps
+	extends IBaseTypographyProps<React.PropsWithChildren> {
 	className?: string;
 	variant?: Variant;
 	$color?: Color;

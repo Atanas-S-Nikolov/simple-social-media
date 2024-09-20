@@ -35,16 +35,3 @@ export const StyledTabs = styled.section`
 	margin-bottom: 5px;
 	gap: 5px;
 `;
-
-export const TabButton = styled.button`
-	flex: 1;
-	border: none;
-	border-bottom-width: 1.5px;
-	border-bottom-style: solid;
-	border-bottom-color: transparent;
-	transition: border-color linear .2s;
-	&:hover {
-		border-color: ${(props) => props.theme.text.accent};
-		background-color: ${(props) => props.theme.primary};
-	}
-`;

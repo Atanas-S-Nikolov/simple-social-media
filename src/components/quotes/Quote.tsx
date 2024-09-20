@@ -1,16 +1,18 @@
 import { useState, MouseEvent } from "react";
 import { quotesKeys } from "../../queries/queryKeys";
 import { useGetRandomQuote } from "../../queries/quotes/useGetRandomQuote";
+
 import {
 	StyledQuote,
 	StyledQuoteAuthor,
 	StyledQuoteContainer,
 	StyledQuoteText,
 	StyledTabs,
-	TabButton,
 } from "./Quote.styled";
 import Loader from "../utils/Loader";
 import Error from "../utils/Error";
+import TabButton from "../common/TabButton";
+
 import { FaQuoteRight } from "react-icons/fa";
 import {
 	ONE_DAY_IN_MS,
@@ -26,50 +28,54 @@ const DEFAULT_QUERY_CONFIG = {
 const tabs = [
 	{
 		text: "Random",
+		tooltip: "Display random quote",
 		...DEFAULT_QUERY_CONFIG,
 	},
 	{
 		text: "Hourly",
+		tooltip: "Display random quote on every hour",
 		queryKey: quotesKeys.oneRandomPerHour(),
 		staleTime: ONE_HOUR_IN_MS,
 	},
 	{
 		text: "Daily",
+		tooltip: "Display random quote of the day",
 		queryKey: quotesKeys.oneRandomPerDay(),
 		staleTime: ONE_DAY_IN_MS,
 	},
 ];
 
 export default function Quote() {
-	const queryConfigFromStorage = localStorage.getItem("queryConfig");
-	const [queryConfig, setQueryConfig] = useState(
-		queryConfigFromStorage
-			? JSON.parse(queryConfigFromStorage)
-			: DEFAULT_QUERY_CONFIG,
+	const queryConfigFromStorage = localStorage.getItem("queryConfigIndex");
+	const [queryConfigIndex, setQueryConfigIndex] = useState(
+		queryConfigFromStorage ? Number(JSON.parse(queryConfigFromStorage)) : 0,
 	);
+	const queryConfig = tabs[queryConfigIndex];
 	const { isFetched, isError, isLoading, data } = useGetRandomQuote(
 		queryConfig.queryKey,
 		queryConfig.staleTime,
 	);
 
 	function handleOptionClick(_event: MouseEvent, index: number) {
-		const { queryKey, staleTime } = tabs[index];
-		const updatedQueryConfig = { queryKey, staleTime };
-		setQueryConfig(updatedQueryConfig);
-		localStorage.setItem("queryConfig", JSON.stringify(updatedQueryConfig));
+		setQueryConfigIndex(index);
+		localStorage.setItem("queryConfigIndex", index.toString());
 	}
 
 	return (
 		<StyledQuoteContainer>
 			<StyledTabs>
-				{tabs.map((tab, index) => (
-					<TabButton
-						key={index}
-						onClick={(event: MouseEvent) => handleOptionClick(event, index)}
-					>
-						{tab.text}
-					</TabButton>
-				))}
+				{tabs.map((tab, index) => {
+					return (
+						<TabButton
+							key={index}
+							selected={index === queryConfigIndex}
+							onClick={(event: MouseEvent) => handleOptionClick(event, index)}
+							title={tab.tooltip}
+						>
+							{tab.text}
+						</TabButton>
+					);
+				})}
 			</StyledTabs>
 			<StyledQuote>
 				<Loader isVisible={isLoading} />
