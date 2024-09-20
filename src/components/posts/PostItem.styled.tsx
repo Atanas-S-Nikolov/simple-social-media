@@ -54,10 +54,7 @@ export const StyledPostActions = styled.section`
 
 export const StyledPostButton = styled.button`
 	background-color: transparent;
-	color: ${(props) => props.theme.text.accent};
 	border: none;
-	padding: 0.5em;
-	font-size: 1rem;
 	flex: 1;
 	display: flex;
 	justify-content: center;
