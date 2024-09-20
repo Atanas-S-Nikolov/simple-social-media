@@ -22,5 +22,13 @@ export const GlobalStyle = createGlobalStyle`
 
     button {
         cursor: pointer;
+        background-color: ${(props) => props.theme.primary};
+        color: ${(props) => props.theme.text.accent};
+        border: 1px solid ${(props) => props.theme.border};
+        padding: 0.5em;
+        font-size: 1rem;
+        &:hover {
+            background-color: ${(props) => props.theme.background};
+        }
     }
 `;
