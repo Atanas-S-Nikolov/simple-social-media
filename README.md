@@ -14,7 +14,7 @@ Social Media app frontend using [DummyJSON](https://dummyjson.com/) as backend.
 
 ### Comments
 
-* CRUD - not started
+* CRUD - (Create - not started, Read - done, Update - partially done, Delete - not started)
 
 ### Users and authentication - not started
 
