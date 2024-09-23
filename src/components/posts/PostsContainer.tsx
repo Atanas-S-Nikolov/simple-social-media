@@ -1,10 +1,9 @@
 import { useGetPosts } from "../../queries/posts/useGetPosts";
 import PostItem from "./PostItem";
-import { StyledPostContainer } from "./PostContainer.styled";
+import { StyledPostContainer, StyledTypography } from "./PostContainer.styled";
 import { useCallback, useMemo, useRef } from "react";
 import Loader from "../utils/Loader";
 import Error from "../utils/Error";
-import Typography from "../common/Typography";
 
 export default function PostsContainer() {
 	const observer = useRef<IntersectionObserver>();
@@ -56,7 +55,9 @@ export default function PostsContainer() {
 						);
 					})
 				: null}
-			{isFetching ? <Typography>Loading more posts...</Typography> : null}
+			{isFetching ? (
+				<StyledTypography>Loading more posts...</StyledTypography>
+			) : null}
 		</StyledPostContainer>
 	);
 }
