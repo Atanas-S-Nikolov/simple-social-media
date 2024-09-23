@@ -19,7 +19,7 @@ export default function PostsContainer() {
 	} = useGetPosts();
 
 	const lastElementRef = useCallback(
-		(node: HTMLDivElement) => {
+		(node: HTMLElement) => {
 			if (isLoading) return;
 
 			if (observer.current) observer.current.disconnect();
@@ -45,9 +45,16 @@ export default function PostsContainer() {
 			<Loader isVisible={isLoading} />
 			<Error isVisible={isError} />
 			{isFetched
-				? flatData.map((post) => (
-						<PostItem key={post.id} post={post} ref={lastElementRef} />
-					))
+				? flatData.map((post, index) => {
+						const isPageLastElement = index === flatData.length - 1;
+						return (
+							<PostItem
+								key={post.id}
+								post={post}
+								ref={isPageLastElement ? lastElementRef : null}
+							/>
+						);
+					})
 				: null}
 			{isFetching ? <Typography>Loading more posts...</Typography> : null}
 		</StyledPostContainer>
