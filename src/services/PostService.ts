@@ -2,8 +2,10 @@ import { ICommentPagination, IPostPagination } from "../appTypes/Pagination";
 import { IPost } from "../appTypes/Post";
 import { backendRequest } from "../configs/apiConfig";
 
-export async function getPosts(): Promise<IPostPagination> {
-	const response = await backendRequest.get("/posts");
+export async function getPosts(skip = 0, limit = 10): Promise<IPostPagination> {
+	const response = await backendRequest.get(
+		`/posts?limit=${limit}&skip=${skip}`,
+	);
 	return response.data;
 }
 
