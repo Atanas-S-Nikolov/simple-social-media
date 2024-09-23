@@ -10,7 +10,7 @@ Social Media app frontend using [DummyJSON](https://dummyjson.com/) as backend.
 
 * CRUD - (Create - not started, Read - done, Update - partially done, Delete - not started)
 
-* Infinite scroll - not started
+* Infinite scroll - done
 
 ### Comments
 
@@ -18,7 +18,7 @@ Social Media app frontend using [DummyJSON](https://dummyjson.com/) as backend.
 
 ### Users and authentication - not started
 
-### Quotes - not started
+### Quotes - done
 
 ### Theming - done
 

@@ -15,7 +15,7 @@ import {
 	StyledTextAction,
 } from "./PostItem.styled";
 import { BLUE, RED, TABLET } from "../../styles/variables";
-import { useState } from "react";
+import { forwardRef, useState } from "react";
 import {
 	AiFillDislike,
 	AiFillLike,
@@ -33,7 +33,7 @@ import Error from "../utils/Error";
 import Typography from "../common/Typography";
 import { useMediaQuery } from "../../hooks/useMediaQuery";
 
-export default function PostItem({ post }: IPostItemProps) {
+const PostItem = forwardRef<HTMLElement, IPostItemProps>(({ post }, ref ) => {
 	const [currentPost, setCurrentPost] = useState(post);
 	const { id, title, body, reactions, views, userId } = currentPost;
 	const updatePostMutation = useUpdatePost();
@@ -44,7 +44,7 @@ export default function PostItem({ post }: IPostItemProps) {
 	const isFetched = userQuery.isFetched && commentsQuery.isFetched;
 	const [liked, setLiked] = useState(false);
 	const [disliked, setDisliked] = useState(false);
-	const [commentsVisible, setCommentsVisible] = useState(false);
+	const [commentsVisible, setCommentsVisible] = useState(false);	
 	const tablet = useMediaQuery(`(max-width: ${TABLET})`);
 	const likeIcon = liked ? (
 		<AiFillLike fontSize={20} color={BLUE} />
@@ -149,10 +149,12 @@ export default function PostItem({ post }: IPostItemProps) {
 	}
 
 	return (
-		<StyledPostItem>
+		<StyledPostItem ref={ref}>
 			<Loader isVisible={isLoading} />
 			<Error isVisible={isError} />
 			{isFetched ? renderPost() : null}
 		</StyledPostItem>
 	);
-}
+})
+
+export default PostItem;
