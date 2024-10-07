@@ -11,4 +11,7 @@ export const StyledIconButton = styled.button`
 	&:hover {
 		background-color: ${(props) => props.theme.background};
 	}
+	& > svg {
+		vertical-align: middle;
+	}
 `;
